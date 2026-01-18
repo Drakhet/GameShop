@@ -21,7 +21,7 @@ builder.Services.AddScoped<UserRepository>();
 
 
 builder.Services.AddScoped<IGameService, GameService>();
-builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllersWithViews();
 

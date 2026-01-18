@@ -1,82 +1,79 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using GameShop.BLL.Services;
+using GameShop.BLL.Interfaces;
 using GameShop.DAL.Models;
 
 namespace GameShop.MVC.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
-        public UsersController(UserService userService)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var korisnici = _userService.GetAll();
-            return View(korisnici);
+            var users = await _userService.GetAllAsync();
+            return View(users);
         }
-        public IActionResult Details(int id)
+
+        public async Task<IActionResult> Details(int id)
         {
-            var user = _userService.GetById(id);
+            var user = await _userService.GetByIdAsync(id);
             if (user == null) return NotFound();
             return View(user);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(User user)
+        public async Task<IActionResult> Create(User user)
         {
             if (ModelState.IsValid)
             {
-                _userService.Create(user);
+                await _userService.CreateAsync(user);
                 return RedirectToAction(nameof(Index));
             }
             return View(user);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var user = _userService.GetById(id);
-            if (user == null)
+            var user = await _userService.GetByIdAsync(id);
+            if (user == null) return NotFound();
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, User user)
+        {
+            if (id != user.Id) return NotFound();
+
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                await _userService.UpdateAsync(user);
+                return RedirectToAction(nameof(Index));
             }
+            return View(user);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var user = await _userService.GetByIdAsync(id);
+            if (user == null) return NotFound();
             return View(user);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            _userService.Delete(id);
+            await _userService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult Edit(int id)
-        {
-            var user = _userService.GetById(id);
-            if (user == null) return NotFound();
-            return View(user);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(User user)
-        {
-            if (ModelState.IsValid)
-            {
-                _userService.Update(user);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(user);
         }
     }
 }
