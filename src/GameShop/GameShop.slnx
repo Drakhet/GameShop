@@ -1,5 +1,5 @@
 <Solution>
   <Project Path="GameShop.BLL/GameShop.BLL.csproj" Id="daf13ca4-3e95-4349-abeb-0faedbdfe23d" />
   <Project Path="GameShop.DAL/GameShop.DAL.csproj" Id="e1f60247-71e9-4c56-a876-4f1e4ea64067" />
-  <Project Path="GameShop.MVC/GameShop.MVC.csproj" Id="54e40946-bb2b-4743-af01-87542064ec72" />
+  <Project Path="GameShop.MVC/GameShop.MVC.csproj" Id="54e40946-bb2b-4743-af01-87542064ec72" DefaultStartup="true" />
 </Solution>
