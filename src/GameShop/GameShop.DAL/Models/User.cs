@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameShop.DAL.Model
+namespace GameShop.DAL.Models
 {
-    internal class User
+    public class User
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; } // "Admin", "Customer"
+        public string Role { get; set; }
     }
 }

@@ -1,18 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using GameShop.DAL.Models;
 
-namespace GameShop.MVC.Data
+namespace GameShop.DAL
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class AppDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-            public DbSet<VideoGame> VideoGames { get; set; }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+        public DbSet<VideoGame> VideoGames { get; set; }
         public DbSet<User> Users { get; set; }
     }
-    }
 }
-

@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-GameShop.MVC-d8d235be-2672-4082-ab05-904f8049613e</UserSecretsId>
+    <UserSecretsId>aspnet-GameShop.MVC-8c5227e6-c50c-4dc8-a8a6-ebdc027fa558</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,10 +13,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.23" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\GameShop.BLL\GameShop.BLL.csproj" />
+    <ProjectReference Include="..\GameShop.DAL\GameShop.DAL.csproj" />
   </ItemGroup>
 
 </Project>

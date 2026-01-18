@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameShop.DAL.Model
+namespace GameShop.DAL.Models
 {
-    internal class VideoGame
+    public class VideoGame
     {
         public int Id { get; set; } // Jedinstveni ID
         public string Title { get; set; } // Naslov igre
