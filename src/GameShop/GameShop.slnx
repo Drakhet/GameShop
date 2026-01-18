@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="GameShop.BLL/GameShop.BLL.csproj" />
+  <Project Path="GameShop.DAL/GameShop.DAL.csproj" />
+  <Project Path="GameShop.MVC/GameShop.MVC.csproj" />
+</Solution>
