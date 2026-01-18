@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using GameShop.BLL.DTOs;
 using GameShop.BLL.Interfaces;
 using GameShop.DAL;
 using GameShop.DAL.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace GameShop.BLL.Services
 {
@@ -16,38 +15,68 @@ namespace GameShop.BLL.Services
             _context = context;
         }
 
-        public async Task<List<User>> GetAllAsync()
+        public async Task<List<UserDto>> GetAllAsync()
         {
-            return await _context.Users.ToListAsync();
+            var users = await _context.Users.ToListAsync();
+            return users.Select(u => new UserDto
+            {
+                Id = u.Id,
+                Username = u.Username,
+                Email = u.Email,
+                Role = u.Role
+            }).ToList();
         }
 
-        public async Task<User?> GetByIdAsync(int id)
+        public async Task<UserDto?> GetByIdAsync(int id)
         {
-            return await _context.Users.FindAsync(id);
+            var u = await _context.Users.FindAsync(id);
+            if (u == null) return null;
+
+            return new UserDto
+            {
+                Id = u.Id,
+                Username = u.Username,
+                Email = u.Email,
+                Role = u.Role
+            };
         }
 
-        public async Task<User> CreateAsync(User user)
+        public async Task CreateAsync(UserDto dto)
         {
-            _context.Users.Add(user);
+            var entity = new User
+            {
+                Username = dto.Username,
+                Email = dto.Email,
+                Password = dto.Password,
+                Role = dto.Role
+            };
+            _context.Users.Add(entity);
             await _context.SaveChangesAsync();
-            return user;
         }
 
-        public async Task<User> UpdateAsync(User user)
+        public async Task UpdateAsync(UserDto dto)
         {
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-            return user;
+            var entity = await _context.Users.FindAsync(dto.Id);
+            if (entity != null)
+            {
+                entity.Username = dto.Username;
+                entity.Email = dto.Email;
+                entity.Password = dto.Password;
+                entity.Role = dto.Role;
+
+                _context.Users.Update(entity);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null) return false;
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            return true;
+            var entity = await _context.Users.FindAsync(id);
+            if (entity != null)
+            {
+                _context.Users.Remove(entity);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

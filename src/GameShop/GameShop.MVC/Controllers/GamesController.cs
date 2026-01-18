@@ -1,6 +1,6 @@
-﻿using GameShop.BLL.Interfaces;
-using GameShop.BLL.Services;
-using GameShop.DAL.Models;
+﻿using GameShop.BLL.DTOs;
+using GameShop.BLL.Interfaces;
+using GameShop.MVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameShop.MVC.Controllers
@@ -13,76 +13,104 @@ namespace GameShop.MVC.Controllers
         {
             _gameService = gameService;
         }
-
-
         public async Task<IActionResult> Index()
         {
-            var games = await _gameService.GetAllAsync();
-            return View(games);
-        }
+            var dtos = await _gameService.GetAllAsync();
 
+            var vms = dtos.Select(d => new GameViewModel
+            {
+                Id = d.Id,
+                Title = d.Title,
+                Genre = d.Genre,
+                Price = d.Price,
+                ReleaseDate = d.ReleaseDate,
+                Description = d.Description
+            }).ToList();
+
+            return View(vms);
+        }
         public async Task<IActionResult> Details(int id)
         {
-            var game = await _gameService.GetByIdAsync(id);
-            if (game == null)
+            var dto = await _gameService.GetByIdAsync(id);
+            if (dto == null) return NotFound();
+
+            var vm = new GameViewModel
             {
-                return NotFound();
-            }
-            return View(game);
+                Id = dto.Id,
+                Title = dto.Title,
+                Genre = dto.Genre,
+                Price = dto.Price,
+                ReleaseDate = dto.ReleaseDate,
+                Description = dto.Description
+            };
+            return View(vm);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
-
+        public IActionResult Create() => View();
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Genre,Description,Price,ReleaseDate")] VideoGame game)
+        public async Task<IActionResult> Create(GameViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                await _gameService.CreateAsync(game);
+                var dto = new VideoGameDto
+                {
+                    Title = vm.Title,
+                    Genre = vm.Genre,
+                    Price = vm.Price,
+                    ReleaseDate = vm.ReleaseDate,
+                    Description = vm.Description
+                };
+                await _gameService.CreateAsync(dto);
                 return RedirectToAction(nameof(Index));
             }
-            return View(game);
+            return View(vm);
         }
-
         public async Task<IActionResult> Edit(int id)
         {
-            var game = await _gameService.GetByIdAsync(id);
-            if (game == null)
-            {
-                return NotFound();
-            }
-            return View(game);
-        }
+            var dto = await _gameService.GetByIdAsync(id);
+            if (dto == null) return NotFound();
 
+            var vm = new GameViewModel
+            {
+                Id = dto.Id,
+                Title = dto.Title,
+                Genre = dto.Genre,
+                Price = dto.Price,
+                ReleaseDate = dto.ReleaseDate,
+                Description = dto.Description
+            };
+            return View(vm);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Genre,Price,ReleaseDate")] VideoGame game)
+        public async Task<IActionResult> Edit(int id, GameViewModel vm)
         {
-            if (id != game.Id)
-            {
-                return NotFound();
-            }
+            if (id != vm.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
-                await _gameService.UpdateAsync(game);
+                var dto = new VideoGameDto
+                {
+                    Id = vm.Id,
+                    Title = vm.Title,
+                    Genre = vm.Genre,
+                    Price = vm.Price,
+                    ReleaseDate = vm.ReleaseDate,
+                    Description = vm.Description
+                };
+                await _gameService.UpdateAsync(dto);
                 return RedirectToAction(nameof(Index));
             }
-            return View(game);
+            return View(vm);
         }
-
         public async Task<IActionResult> Delete(int id)
         {
-            var game = await _gameService.GetByIdAsync(id);
-            if (game == null)
-            {
-                return NotFound();
-            }
-            return View(game);
+            var dto = await _gameService.GetByIdAsync(id);
+            if (dto == null) return NotFound();
+
+            var vm = new GameViewModel { Id = dto.Id, Title = dto.Title, Genre = dto.Genre, Price = dto.Price };
+            return View(vm);
         }
 
         [HttpPost, ActionName("Delete")]

@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameShop.DAL.Models;
+using GameShop.BLL.DTOs;
 
 namespace GameShop.BLL.Interfaces
 {
     public interface IGameService
     {
-        public Task<List<VideoGame>> GetAllAsync();
-        public Task<VideoGame?> GetByIdAsync(int id);
-        public Task<VideoGame> CreateAsync(VideoGame game);
-        public Task<VideoGame> UpdateAsync(VideoGame game);
-        public Task<bool> DeleteAsync(int id);
+        Task<List<VideoGameDto>> GetAllAsync();
+        Task<VideoGameDto?> GetByIdAsync(int id);
+        Task CreateAsync(VideoGameDto gameDto);
+        Task UpdateAsync(VideoGameDto gameDto);
+        Task DeleteAsync(int id);
     }
 }

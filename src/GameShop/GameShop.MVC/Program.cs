@@ -1,7 +1,6 @@
 ﻿using GameShop.BLL.Interfaces;
 using GameShop.BLL.Services;        
 using GameShop.DAL;                
-using GameShop.DAL.Repositories;    
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -14,10 +13,6 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
-
-
-builder.Services.AddScoped<GameRepository>();
-builder.Services.AddScoped<UserRepository>();
 
 
 builder.Services.AddScoped<IGameService, GameService>();

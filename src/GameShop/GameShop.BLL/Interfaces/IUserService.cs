@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameShop.DAL.Models;
-
+using GameShop.BLL.DTOs;
 
 namespace GameShop.BLL.Interfaces
 {
     public interface IUserService
     {
-        Task<List<User>> GetAllAsync();
-        Task<User?> GetByIdAsync(int id);
-        Task<User> CreateAsync(User user);
-        Task<User> UpdateAsync(User user);
-        Task<bool> DeleteAsync(int id);
+        Task<List<UserDto>> GetAllAsync();
+        Task<UserDto?> GetByIdAsync(int id);
+        Task CreateAsync(UserDto userDto);
+        Task UpdateAsync(UserDto userDto);
+        Task DeleteAsync(int id);
     }
 }

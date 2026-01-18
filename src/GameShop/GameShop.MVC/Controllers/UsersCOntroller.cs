@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GameShop.BLL.DTOs;
 using GameShop.BLL.Interfaces;
-using GameShop.DAL.Models;
+using GameShop.MVC.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GameShop.MVC.Controllers
 {
@@ -12,60 +13,100 @@ namespace GameShop.MVC.Controllers
         {
             _userService = userService;
         }
-
         public async Task<IActionResult> Index()
         {
-            var users = await _userService.GetAllAsync();
-            return View(users);
-        }
+            var dtos = await _userService.GetAllAsync();
+            var viewModels = dtos.Select(d => new UserViewModel
+            {
+                Id = d.Id,
+                Username = d.Username,
+                Email = d.Email,
+                Role = d.Role
+            }).ToList();
 
+            return View(viewModels);
+        }
         public async Task<IActionResult> Details(int id)
         {
-            var user = await _userService.GetByIdAsync(id);
-            if (user == null) return NotFound();
-            return View(user);
+            var dto = await _userService.GetByIdAsync(id);
+            if (dto == null) return NotFound();
+            var vm = new UserViewModel
+            {
+                Id = dto.Id,
+                Username = dto.Username,
+                Email = dto.Email,
+                Role = dto.Role
+            };
+            return View(vm);
         }
 
         public IActionResult Create() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(User user)
+        public async Task<IActionResult> Create(UserViewModel vm) 
         {
             if (ModelState.IsValid)
             {
-                await _userService.CreateAsync(user);
+                var dto = new UserDto
+                {
+                    Username = vm.Username,
+                    Email = vm.Email,
+                    Password = vm.Password,
+                    Role = vm.Role
+                };
+
+                await _userService.CreateAsync(dto);
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(vm);
         }
-
         public async Task<IActionResult> Edit(int id)
         {
-            var user = await _userService.GetByIdAsync(id);
-            if (user == null) return NotFound();
-            return View(user);
+            var dto = await _userService.GetByIdAsync(id);
+            if (dto == null) return NotFound();
+            var vm = new UserViewModel
+            {
+                Id = dto.Id,
+                Username = dto.Username,
+                Email = dto.Email,
+                Role = dto.Role
+            };
+            return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, User user)
+        public async Task<IActionResult> Edit(int id, UserViewModel vm)
         {
-            if (id != user.Id) return NotFound();
+            if (id != vm.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
-                await _userService.UpdateAsync(user);
+                var userDto = new UserDto
+                {
+                    Id = vm.Id,
+                    Username = vm.Username,
+                    Email = vm.Email,
+                    Password = vm.Password,
+                    Role = vm.Role
+                };
+                await _userService.UpdateAsync(userDto);
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(vm);
         }
-
         public async Task<IActionResult> Delete(int id)
         {
-            var user = await _userService.GetByIdAsync(id);
-            if (user == null) return NotFound();
-            return View(user);
+            var dto = await _userService.GetByIdAsync(id);
+            if (dto == null) return NotFound();
+            var vm = new UserViewModel
+            {
+                Id = dto.Id,
+                Username = dto.Username,
+                Email = dto.Email
+            };
+            return View(vm);
         }
 
         [HttpPost, ActionName("Delete")]
