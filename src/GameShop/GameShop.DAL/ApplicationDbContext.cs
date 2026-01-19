@@ -9,5 +9,6 @@ namespace GameShop.DAL
 
         public DbSet<VideoGame> VideoGames { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserGame> UserGames{ get; set; }
     }
 }

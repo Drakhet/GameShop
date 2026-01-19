@@ -23,7 +23,8 @@ namespace GameShop.BLL.Services
                 Id = u.Id,
                 Username = u.Username,
                 Email = u.Email,
-                Role = u.Role
+                Role = u.Role,
+                Balance = u.Balance
             }).ToList();
         }
 
@@ -37,7 +38,8 @@ namespace GameShop.BLL.Services
                 Id = u.Id,
                 Username = u.Username,
                 Email = u.Email,
-                Role = u.Role
+                Role = u.Role,
+                Balance = u.Balance
             };
         }
 
@@ -48,7 +50,8 @@ namespace GameShop.BLL.Services
                 Username = dto.Username,
                 Email = dto.Email,
                 Password = dto.Password,
-                Role = dto.Role
+                Role = dto.Role,
+                Balance = dto.Balance
             };
             _context.Users.Add(entity);
             await _context.SaveChangesAsync();
@@ -63,6 +66,7 @@ namespace GameShop.BLL.Services
                 entity.Email = dto.Email;
                 entity.Password = dto.Password;
                 entity.Role = dto.Role;
+                entity.Balance = dto.Balance;
 
                 _context.Users.Update(entity);
                 await _context.SaveChangesAsync();
@@ -90,7 +94,8 @@ namespace GameShop.BLL.Services
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
-                Role = user.Role
+                Role = user.Role,
+                Balance = user.Balance
             };
         }
     }
