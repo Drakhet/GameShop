@@ -78,5 +78,20 @@ namespace GameShop.BLL.Services
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<UserDto?> AuthenticateAsync(string username, string password)
+        {
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+
+            if (user == null) return null;
+
+            return new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                Role = user.Role
+            };
+        }
     }
 }

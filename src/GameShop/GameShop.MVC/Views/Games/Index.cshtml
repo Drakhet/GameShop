@@ -6,6 +6,7 @@
 
 <h1>Pregled Igara</h1>
 
+@if (User.IsInRole("Admin"))
 <p>
     <a asp-action="Create" class="btn btn-primary">Dodaj Novu Igru</a>
 </p>
@@ -25,11 +26,17 @@
         <tr>
             <td>@Html.DisplayFor(modelItem => item.Title)</td>
             <td>@Html.DisplayFor(modelItem => item.Genre)</td>
-            <td>@item.Price.ToString("N2") RSD</td> <td>@item.ReleaseDate.ToShortDateString()</td>
+            <td>@item.Price.ToString("N2") RSD</td> <td>@item.ReleaseDate.ToShortDateString()</td
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Izmeni</a> |
+             @if (User.IsInRole("Admin"))
+             {
+               <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Izmeni</a> 
+               <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Obriši</a>
+                        
+             }
+             
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalji</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Obriši</a>
+                
             </td>
         </tr>
 }

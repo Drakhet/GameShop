@@ -2,9 +2,11 @@
 using GameShop.BLL.Interfaces;
 using GameShop.MVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameShop.MVC.Controllers
 {
+    [Authorize]
     public class GamesController : Controller
     {
         private readonly IGameService _gameService;
@@ -13,6 +15,7 @@ namespace GameShop.MVC.Controllers
         {
             _gameService = gameService;
         }
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var dtos = await _gameService.GetAllAsync();
@@ -29,6 +32,7 @@ namespace GameShop.MVC.Controllers
 
             return View(vms);
         }
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var dto = await _gameService.GetByIdAsync(id);
@@ -45,10 +49,11 @@ namespace GameShop.MVC.Controllers
             };
             return View(vm);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Create() => View();
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(GameViewModel vm)
         {
             if (ModelState.IsValid)
@@ -66,6 +71,7 @@ namespace GameShop.MVC.Controllers
             }
             return View(vm);
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var dto = await _gameService.GetByIdAsync(id);
@@ -84,6 +90,7 @@ namespace GameShop.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, GameViewModel vm)
         {
             if (id != vm.Id) return NotFound();
@@ -104,6 +111,7 @@ namespace GameShop.MVC.Controllers
             }
             return View(vm);
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var dto = await _gameService.GetByIdAsync(id);
@@ -115,6 +123,7 @@ namespace GameShop.MVC.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _gameService.DeleteAsync(id);

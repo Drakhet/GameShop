@@ -1,8 +1,27 @@
-﻿﻿@{
-ViewData["Title"] = "Home Page";
+﻿@{
+    ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mt-5">
+    <h1 class="display-4">Dobrodošli u GameShop</h1>
+    
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <p class="lead">Najbolje mesto za kupovinu video igara.</p>
+        <hr class="my-4">
+        <p>Da biste započeli kupovinu, molimo vas da se prijavite.</p>
+        <div class="mt-4">
+            <a class="btn btn-primary btn-lg mx-2" asp-controller="Account" asp-action="Login" role="button">Prijavi se</a>
+            <a class="btn btn-secondary btn-lg mx-2" asp-controller="Account" asp-action="Register" role="button">Registracija</a>
+        </div>
+    }
+    else
+    {
+        <p class="lead">Zdravo, @User.Identity.Name! Spremni za gejming?</p>
+        <hr class="my-4">
+        <p>Pogledajte našu najnoviju ponudu.</p>
+        <div class="mt-4">
+            <a class="btn btn-success btn-lg" asp-controller="Games" asp-action="Index" role="button">Pregledaj Igre</a>
+        </div>
+    }
 </div>
