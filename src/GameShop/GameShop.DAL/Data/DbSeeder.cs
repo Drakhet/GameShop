@@ -57,7 +57,7 @@ namespace GameShop.DAL.Data
                     {
                         Username = "admin",
                         Email = "admin@gameshop.com",
-                        Password = "1234",
+                        Password = BCrypt.Net.BCrypt.HashPassword("admin"),
                         Role = "Admin",
                         Balance = 0
                     },
@@ -66,7 +66,7 @@ namespace GameShop.DAL.Data
                     {
                         Username = "testuser",
                         Email = "user@gmail.com",
-                        Password = "1234",
+                        Password = BCrypt.Net.BCrypt.HashPassword("1234"),
                         Role = "User",
                         Balance = 15000
                     }

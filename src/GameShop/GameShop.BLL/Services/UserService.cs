@@ -49,7 +49,7 @@ namespace GameShop.BLL.Services
             {
                 Username = dto.Username,
                 Email = dto.Email,
-                Password = dto.Password,
+                Password = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                 Role = dto.Role,
                 Balance = dto.Balance
             };
@@ -64,7 +64,7 @@ namespace GameShop.BLL.Services
             {
                 entity.Username = dto.Username;
                 entity.Email = dto.Email;
-                entity.Password = dto.Password;
+                entity.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
                 entity.Role = dto.Role;
                 entity.Balance = dto.Balance;
 
@@ -84,10 +84,13 @@ namespace GameShop.BLL.Services
         }
         public async Task<UserDto?> AuthenticateAsync(string username, string password)
         {
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
 
             if (user == null) return null;
+
+            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
+
+            if (!isPasswordValid) return null;
 
             return new UserDto
             {
@@ -114,13 +117,29 @@ namespace GameShop.BLL.Services
             var user = await _context.Users.FindAsync(userId);
             if (user == null) return false;
 
-            // Namestiti da se porede Hashovi
-            if (user.Password != oldPassword)
+            if (!BCrypt.Net.BCrypt.Verify(oldPassword, user.Password))
             {
-                return false;
+                return false; 
             }
 
-            user.Password = newPassword;
+            user.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> RegisterAsync(UserDto userDto)
+        {
+
+            var user = new User
+            {
+                Username = userDto.Username,
+                Email = userDto.Email,
+                Role = "User",
+                Balance = 0,
+
+                Password = BCrypt.Net.BCrypt.HashPassword(userDto.Password)
+            };
+
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return true;
         }
