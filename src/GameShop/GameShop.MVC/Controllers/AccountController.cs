@@ -1,10 +1,11 @@
-﻿using System.Security.Claims;
+﻿using GameShop.BLL.DTOs;
+using GameShop.BLL.Interfaces;
+using GameShop.MVC.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using GameShop.BLL.Interfaces;
-using GameShop.BLL.DTOs;
-using GameShop.MVC.ViewModels;
+using System.Security.Claims;
 
 namespace GameShop.MVC.Controllers
 {
@@ -15,6 +16,11 @@ namespace GameShop.MVC.Controllers
         public AccountController(IUserService userService)
         {
             _userService = userService;
+        }
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
         public IActionResult Login()
         {
@@ -75,11 +81,6 @@ namespace GameShop.MVC.Controllers
                 return RedirectToAction("Login");
             }
             return View(vm);
-        }
-
-        public IActionResult AccessDenied()
-        {
-            return View();
         }
     }
 }

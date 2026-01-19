@@ -2,13 +2,14 @@
 using GameShop.BLL.Interfaces;
 using GameShop.MVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameShop.MVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly IUserService _userService;
-
         public UsersController(IUserService userService)
         {
             _userService = userService;
