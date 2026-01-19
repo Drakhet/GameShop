@@ -1,4 +1,5 @@
-﻿using GameShop.BLL.Interfaces;
+﻿using GameShop.DAL.Data;
+using GameShop.BLL.Interfaces;
 using GameShop.BLL.Services;        
 using GameShop.DAL;                
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,20 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+
+        DbSeeder.Seed(context);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Greška pri seedovanju baze: " + ex.Message);
+    }
+}
 
 if (!app.Environment.IsDevelopment())
 {

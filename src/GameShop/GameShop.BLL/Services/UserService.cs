@@ -98,5 +98,31 @@ namespace GameShop.BLL.Services
                 Balance = user.Balance
             };
         }
+        public async Task UpdateUserAsync(UserDto userDto)
+        {
+            var user = await _context.Users.FindAsync(userDto.Id);
+            if (user != null)
+            {
+                user.Username = userDto.Username;
+                user.Email = userDto.Email;
+
+                await _context.SaveChangesAsync();
+            }
+        }
+        public async Task<bool> ChangePasswordAsync(int userId, string oldPassword, string newPassword)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null) return false;
+
+            // Namestiti da se porede Hashovi
+            if (user.Password != oldPassword)
+            {
+                return false;
+            }
+
+            user.Password = newPassword;
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

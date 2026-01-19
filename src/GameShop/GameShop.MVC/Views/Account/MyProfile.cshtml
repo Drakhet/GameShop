@@ -1,0 +1,46 @@
+﻿@model GameShop.BLL.DTOs.UserDto
+
+@{
+    ViewData["Title"] = "Moj Profil";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3>👤 Moj Profil</h3>
+                </div>
+                <div class="card-body">
+
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+
+                    <div class="row mb-3">
+                        <div class="col-sm-4 fw-bold">Korisničko ime:</div>
+                        <div class="col-sm-8">@Model.Username</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 fw-bold">Email adresa:</div>
+                        <div class="col-sm-8">@Model.Email</div>
+                    </div>
+                    <hr />
+                    <div class="row mb-3">
+                        <div class="col-sm-4 fw-bold">Stanje na računu:</div>
+                        <div class="col-sm-8 text-success fw-bold">@Model.Balance.ToString("N2") RSD</div>
+                    </div>
+
+                    <div class="mt-4 d-flex justify-content-end">
+                        <a asp-action="EditProfile" class="btn btn-warning me-2"> Izmeni podatke</a>
+                        <a asp-action="ChangePassword" class="btn btn-danger me-2"> Promeni lozinku</a>
+                        <a asp-controller="Store" asp-action="MyLibrary" class="btn btn-secondary">🎮 Moje Igre</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

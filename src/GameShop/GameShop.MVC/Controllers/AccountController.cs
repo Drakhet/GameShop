@@ -82,5 +82,89 @@ namespace GameShop.MVC.Controllers
             }
             return View(vm);
         }
+        [Authorize]
+        public async Task<IActionResult> MyProfile()
+        {
+            int userId = GetCurrentUserId();
+            var user = await _userService.GetByIdAsync(userId);
+
+            if (user == null) return NotFound();
+
+            return View(user);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> EditProfile()
+        {
+            int userId = GetCurrentUserId();
+            var user = await _userService.GetByIdAsync(userId);
+
+            if (user == null) return NotFound();
+
+            return View(user);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProfile(UserDto model)
+        {
+            int userId = GetCurrentUserId();
+            model.Id = userId;
+
+            ModelState.Remove("Password");
+            ModelState.Remove("ConfirmPassword");
+            ModelState.Remove("Role");
+
+            if (ModelState.IsValid)
+            {
+                await _userService.UpdateUserAsync(model);
+
+                // Potencijalno da se refresh-uje cookie kada se menjaju podaci ako ne zaboravim
+                TempData["SuccessMessage"] = "Profil je uspešno ažuriran!";
+                return RedirectToAction(nameof(MyProfile));
+            }
+
+            return View(model);
+        }
+
+        private int GetCurrentUserId()
+        {
+            var userIdClaim = User.FindFirst("UserId");
+            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return userId;
+            }
+            return 0;
+        }
+
+        [Authorize]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            int userId = GetCurrentUserId();
+
+            bool result = await _userService.ChangePasswordAsync(userId, model.OldPassword, model.NewPassword);
+
+            if (result)
+            {
+                TempData["SuccessMessage"] = "Lozinka je uspešno promenjena!";
+                return RedirectToAction(nameof(MyProfile));
+            }
+            else
+            {
+                ModelState.AddModelError("", "Stara lozinka nije ispravna.");
+                return View(model);
+            }
+        }
     }
 }
