@@ -22,7 +22,8 @@ namespace GameShop.MVC.Controllers
                 Id = d.Id,
                 Username = d.Username,
                 Email = d.Email,
-                Role = d.Role
+                Role = d.Role,
+                Balance = d.Balance
             }).ToList();
 
             return View(viewModels);
@@ -36,20 +37,17 @@ namespace GameShop.MVC.Controllers
                 Id = dto.Id,
                 Username = dto.Username,
                 Email = dto.Email,
-                Role = dto.Role
+                Role = dto.Role,
+                Balance = dto.Balance
             };
             return View(vm);
         }
 
-        public IActionResult Create()
-        {
-                        return View(new UserViewModel());
-
-        }
+        public IActionResult Create() => View(new UserViewModel());
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(UserViewModel vm) 
+        public async Task<IActionResult> Create(UserViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -58,9 +56,9 @@ namespace GameShop.MVC.Controllers
                     Username = vm.Username,
                     Email = vm.Email,
                     Password = vm.Password,
-                    Role = vm.Role
+                    Role = vm.Role,
+                    Balance = 0
                 };
-
                 await _userService.CreateAsync(dto);
                 return RedirectToAction(nameof(Index));
             }
@@ -70,21 +68,25 @@ namespace GameShop.MVC.Controllers
         {
             var dto = await _userService.GetByIdAsync(id);
             if (dto == null) return NotFound();
+
             var vm = new UserViewModel
             {
                 Id = dto.Id,
                 Username = dto.Username,
                 Email = dto.Email,
-                Role = dto.Role
+                Role = dto.Role,
+                Balance = dto.Balance
             };
             return View(vm);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, UserViewModel vm)
         {
             if (id != vm.Id) return NotFound();
+
+            ModelState.Remove("Password");
+            ModelState.Remove("ConfirmPassword");
 
             if (ModelState.IsValid)
             {
@@ -93,9 +95,9 @@ namespace GameShop.MVC.Controllers
                     Id = vm.Id,
                     Username = vm.Username,
                     Email = vm.Email,
-                    Password = vm.Password,
                     Role = vm.Role
                 };
+
                 await _userService.UpdateAsync(userDto);
                 return RedirectToAction(nameof(Index));
             }

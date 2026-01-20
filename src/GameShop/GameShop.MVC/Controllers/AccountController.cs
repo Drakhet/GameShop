@@ -17,11 +17,13 @@ namespace GameShop.MVC.Controllers
         {
             _userService = userService;
         }
+
         [AllowAnonymous]
         public IActionResult AccessDenied()
         {
             return View();
         }
+
         public IActionResult Login()
         {
             return View();
@@ -63,10 +65,14 @@ namespace GameShop.MVC.Controllers
             return RedirectToAction("Login");
         }
 
-        public IActionResult Register() => View();
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View(new RegisterViewModel());
+        }
 
         [HttpPost]
-        public async Task<IActionResult> Register(UserViewModel vm)
+        public async Task<IActionResult> Register(RegisterViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -74,14 +80,25 @@ namespace GameShop.MVC.Controllers
                 {
                     Username = vm.Username,
                     Email = vm.Email,
-                    Password = vm.Password,
-                    Role = "Customer"
+                    Password = vm.Password, 
+                    Role = "Customer",
+                    Balance = 0
                 };
-                await _userService.CreateAsync(dto);
-                return RedirectToAction("Login");
+
+                bool success = await _userService.RegisterAsync(dto);
+
+                if (success)
+                {
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Korisničko ime već postoji.");
+                }
             }
             return View(vm);
         }
+
         [Authorize]
         public async Task<IActionResult> MyProfile()
         {
@@ -120,7 +137,6 @@ namespace GameShop.MVC.Controllers
             {
                 await _userService.UpdateUserAsync(model);
 
-                // Potencijalno da se refresh-uje cookie kada se menjaju podaci ako ne zaboravim
                 TempData["SuccessMessage"] = "Profil je uspešno ažuriran!";
                 return RedirectToAction(nameof(MyProfile));
             }

@@ -13,6 +13,7 @@ namespace GameShop.BLL.Interfaces
         Task<List<UserDto>> GetAllAsync();
         Task<UserDto?> GetByIdAsync(int id);
         Task<UserDto?> AuthenticateAsync(string username, string password);
+        Task<bool> RegisterAsync(UserDto userDto);
         Task CreateAsync(UserDto userDto);
         Task UpdateAsync(UserDto userDto);
         Task UpdateUserAsync(UserDto user);

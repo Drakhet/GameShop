@@ -29,7 +29,11 @@
                     <input asp-for="Password" type="password" class="form-control" placeholder="••••••" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-
+                <div class="mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label">Potvrdi Lozinku</label>
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="••••••" type="password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
                 <div class="mb-3">
                     <label asp-for="Role" class="form-label">Uloga</label>
                     <select asp-for="Role" class="form-select bg-dark text-white">
