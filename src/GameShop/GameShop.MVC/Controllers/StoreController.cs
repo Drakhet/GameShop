@@ -1,9 +1,11 @@
-﻿using System.Security.Claims;
+﻿using GameShop.BLL.DTOs;
+using GameShop.BLL.Interfaces;
+using GameShop.BLL.Services;
+using GameShop.MVC.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using GameShop.BLL.Interfaces;
-using GameShop.MVC.ViewModels;
-using GameShop.BLL.DTOs;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace GameShop.MVC.Controllers
 {
@@ -19,14 +21,34 @@ namespace GameShop.MVC.Controllers
             _userService = userService;
         }
 
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(string searchString, string gameGenre, decimal? maxPrice)
         {
             int userId = GetCurrentUserId();
 
             var games = await _storeService.GetAvailableGamesForUserAsync(userId);
-            UserDto? user = await _userService.GetByIdAsync(userId);
 
+            UserDto? user = await _userService.GetByIdAsync(userId);
             ViewBag.Balance = user?.Balance ?? 0;
+
+            var genreQuery = games.Select(g => g.Genre).Distinct().OrderBy(g => g).ToList();
+            ViewBag.Genres = new SelectList(genreQuery);
+
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                games = games.Where(s => s.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(gameGenre))
+            {
+                games = games.Where(x => x.Genre == gameGenre).ToList();
+            }
+
+            if (maxPrice.HasValue)
+            {
+                games = games.Where(x => x.Price <= maxPrice).ToList();
+            }
 
             var vms = games.Select(g => new GameViewModel
             {
@@ -41,10 +63,24 @@ namespace GameShop.MVC.Controllers
             return View(vms);
         }
 
-        public async Task<IActionResult> MyLibrary()
+        public async Task<IActionResult> MyLibrary(string searchString, string gameGenre)
         {
             int userId = GetCurrentUserId();
+
             var games = await _storeService.GetUserLibraryAsync(userId);
+
+            var genreQuery = games.Select(g => g.Genre).Distinct().OrderBy(g => g).ToList();
+            ViewBag.Genres = new SelectList(genreQuery);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                games = games.Where(s => s.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(gameGenre))
+            {
+                games = games.Where(x => x.Genre == gameGenre).ToList();
+            }
 
             var vms = games.Select(g => new GameViewModel
             {

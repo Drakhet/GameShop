@@ -7,39 +7,35 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h3>👤 Moj Profil</h3>
-                </div>
-                <div class="card-body">
+            <div class="glass-panel">
 
-                    @if (TempData["SuccessMessage"] != null)
-                    {
-                        <div class="alert alert-success">
-                            @TempData["SuccessMessage"]
+                <div class="text-center mb-4">
+                    <div style="font-size: 4rem;"></div>
+                    <h2 class="mt-2">@Model.Username</h2>
+                    <span class="badge bg-secondary">@Model.Role</span>
+                </div>
+
+                <div class="row g-4 text-center mb-4">
+                    <div class="col-md-6">
+                        <div class="p-3 rounded" style="background: rgba(0,0,0,0.3);">
+                            <small class="text-muted text-uppercase">Email Adresa</small>
+                            <h5 class="text-white mb-0">@Model.Email</h5>
                         </div>
-                    }
-
-                    <div class="row mb-3">
-                        <div class="col-sm-4 fw-bold">Korisničko ime:</div>
-                        <div class="col-sm-8">@Model.Username</div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-4 fw-bold">Email adresa:</div>
-                        <div class="col-sm-8">@Model.Email</div>
-                    </div>
-                    <hr />
-                    <div class="row mb-3">
-                        <div class="col-sm-4 fw-bold">Stanje na računu:</div>
-                        <div class="col-sm-8 text-success fw-bold">@Model.Balance.ToString("N2") RSD</div>
-                    </div>
-
-                    <div class="mt-4 d-flex justify-content-end">
-                        <a asp-action="EditProfile" class="btn btn-warning me-2"> Izmeni podatke</a>
-                        <a asp-action="ChangePassword" class="btn btn-danger me-2"> Promeni lozinku</a>
-                        <a asp-controller="Store" asp-action="MyLibrary" class="btn btn-secondary">🎮 Moje Igre</a>
+                    <div class="col-md-6">
+                        <div class="p-3 rounded" style="border: 1px solid var(--neon-green); background: rgba(0,255,0,0.05);">
+                            <small class="text-muted text-uppercase">Trenutno Stanje</small>
+                            <h3 class="fw-bold mb-0" style="color: var(--neon-green);">@Model.Balance.ToString("N2") RSD</h3>
+                        </div>
                     </div>
                 </div>
+
+                <div class="d-flex justify-content-center gap-3 mt-4">
+                    <a asp-action="EditProfile" class="btn btn-outline-dark">Izmeni Podatke</a>
+                    <a asp-action="ChangePassword" class="btn btn-outline-dark">Promeni Lozinku</a>
+                    <a asp-controller="Store" asp-action="AddFunds" class="btn btn-outline-dark">Dodaj Novac</a>
+                </div>
+
             </div>
         </div>
     </div>

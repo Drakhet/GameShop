@@ -18,7 +18,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GameShop.BLL\GameShop.BLL.csproj" />
-    <ProjectReference Include="..\GameShop.DAL\GameShop.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\profiles\" />
   </ItemGroup>
 
 </Project>

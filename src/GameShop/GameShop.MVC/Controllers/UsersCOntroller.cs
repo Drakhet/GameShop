@@ -41,7 +41,11 @@ namespace GameShop.MVC.Controllers
             return View(vm);
         }
 
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+                        return View(new UserViewModel());
+
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

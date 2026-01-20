@@ -1,27 +1,52 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<GameShop.MVC.ViewModels.GameViewModel>
+
+@{
+    ViewData["Title"] = "Početna";
 }
 
-<div class="text-center mt-5">
-    <h1 class="display-4">Dobrodošli u GameShop</h1>
-    
-   @if (User.Identity?.IsAuthenticated == true)
-    {
-        <p class="lead">Zdravo, <b>@User.Identity?.Name</b>! Spremni za gejming?</p>
-        <hr class="my-4">
-        <p>Pogledajte našu najnoviju ponudu video igara.</p>
-        <div class="mt-4">
-            <a class="btn btn-success btn-lg" asp-controller="Games" asp-action="Index" role="button">Pregledaj Igre</a>
-        </div>
-    }
-    else
-    {
-        <p class="lead">Najbolje mesto za kupovinu tvojih omiljenih naslova.</p>
-        <hr class="my-4">
-        <p>Da biste videli ponudu ili upravljali nalogom, molimo vas da se prijavite.</p>
-        <div class="mt-4">
-            <a class="btn btn-primary btn-lg mx-2" asp-controller="Account" asp-action="Login" role="button">Prijavi se</a>
-            <a class="btn btn-secondary btn-lg mx-2" asp-controller="Account" asp-action="Register" role="button">Registracija</a>
-        </div>
-    }
+@* --- HERO SEKCIJA --- *@
+<div class="p-5 mb-4 rounded-3 text-center" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;">
+    <div class="container-fluid py-5">
+        <h1 class="display-3 fw-bolder text-uppercase" style="color: var(--neon-green); text-shadow: 0 0 20px rgba(0,255,0,0.5);">
+            Dobrodošli u GameShop
+        </h1>
+        <p class="col-md-8 fs-4 mx-auto text-white">
+            Tvoja destinacija za najbolje digitalne igre. Istraži, kupi i igraj odmah!
+        </p>
+        <a asp-controller="Games" asp-action="Index" class="btn btn-primary btn-lg mt-3">
+            <i class="bi bi-controller"></i> Istraži Sve Igre
+        </a>
+    </div>
+</div>
+
+@* --- SEKCIJA SA ISTAKNUTIM IGRAMA --- *@
+<div class="container">
+    <h2 class="mb-4 pb-2 border-bottom border-secondary text-uppercase" style="color: var(--neon-green);">
+        <i class="bi bi-star-fill"></i> Izdvajamo iz ponude
+    </h2>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var game in Model)
+        {
+            <div class="col">
+                <div class="card h-100 game-card">
+                    @* Ovde bi mogla ići slika igre *@
+                    <div class="card-header bg-transparent border-bottom border-secondary text-end">
+                        <span class="badge bg-secondary">@game.Genre</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title game-card-title">@game.Title</h5>
+                        <p class="card-text text-muted text-truncate">@game.Description</p>
+
+                        <div class="mt-auto d-flex justify-content-between align-items-center">
+                            <span class="game-price">@game.Price.ToString("N2") RSD</span>
+                            <a asp-controller="Games" asp-action="Details" asp-route-id="@game.Id" class="btn btn-outline-primary btn-sm">
+                                Detalji
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

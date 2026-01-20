@@ -5,12 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GameShop</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    @* --- FONTOVI --- *@
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Chakra+Petch:wght@400;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/GameShop.MVC.styles.css" asp-append-version="true" />
+
+    @* ❌ OBRISANO: <link rel="stylesheet" href="~/GameShop.MVC.styles.css" ... /> 
+       Ovo je pravilo problem sa crnom trakom preko ekrana!
+    *@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GameShop</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -21,21 +28,21 @@
 
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Games" asp-action="Index">Video Igre</a>
+                            <a class="nav-link" asp-area="" asp-controller="Games" asp-action="Index">Video Igre</a>
                         </li>
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Store" asp-action="Index">Prodavnica</a>
+                                <a class="nav-link" asp-area="" asp-controller="Store" asp-action="Index">Prodavnica</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Store" asp-action="MyLibrary">Moja Biblioteka</a>
+                                <a class="nav-link" asp-area="" asp-controller="Store" asp-action="MyLibrary">Moja Biblioteka</a>
                             </li>
                         }
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Upravljanje Korisnicima</a>
+                                <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Index">Upravljanje Korisnicima</a>
                             </li>
                         }
                     </ul>
@@ -44,42 +51,45 @@
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark fw-bold" asp-controller="Account" asp-action="MyProfile">
-                                    @User.Identity.Name!
+                                <a class="nav-link fw-bold" asp-controller="Account" asp-action="MyProfile">
+                                    @* ✅ IZMENA: Sklonili smo 'text-dark' da se ime vidi na tamnoj pozadini *@
+                                    <span>Zdravo, @User.Identity.Name!</span>
                                     <span class="badge bg-secondary">@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-link" asp-controller="Account" asp-action="Logout">Odjavi se</a>
+                                <a class="nav-link btn btn-link" asp-controller="Account" asp-action="Logout">Odjavi se</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Registracija</a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Register">Registracija</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-outline-primary ms-2" asp-controller="Account" asp-action="Login">Prijavi se</a>
+                                <a class="nav-link btn btn-outline-primary ms-2" asp-controller="Account" asp-action="Login">Prijavi se</a>
                             </li>
                         }
                     </ul>
-                   
 
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+
+    @* ✅ IZMENA: Dodali smo klasu 'main-container' ovde *@
+    <div class="container main-container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer">
         <div class="container">
             &copy; 2026 - GameShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

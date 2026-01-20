@@ -4,60 +4,47 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="glass-panel">
+            <h3 class="mb-4">Kreiraj Novog Korisnika</h3>
 
-<h4>User</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" type="password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
+                <div class="mb-3">
+                    <label asp-for="Username" class="form-label">Korisničko ime</label>
+                    <input asp-for="Username" class="form-control" placeholder="Unesite username..." />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" type="password" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" placeholder="email@primer.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Role" class="control-label"></label>
-                <select asp-for="Role" class="form-control">
-                    <option value="">-- Odaberi ulogu --</option>
-                    <option value="Admin">Administrator</option>
-                    <option value="Customer">Kupac</option>
-                </select>
-                <span asp-validation-for="Role" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group mt-3">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">Lozinka</label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="••••••" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Role" class="form-label">Uloga</label>
+                    <select asp-for="Role" class="form-select bg-dark text-white">
+                        <option value="User">User</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success">Kreiraj</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Nazad na listu</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
