@@ -63,23 +63,24 @@ Pratite ove korake da biste podesili projekat na svom računaru:
     git clone [https://github.com/vas-username/GameShop.git](https://github.com/vas-username/GameShop.git)
     ```
 2.  **Podešavanje baze**:
-    Ažurirajte `DefaultConnection` string u `appsettings.json` (GameShop.MVC) tako da pokazuje na vaš lokalni SQL Server.
+    Ažurirajte `DefaultConnection` string u `appsettings.json` (unutar GameShop.MVC projekta) tako da pokazuje na vaš lokalni SQL Server.
 3.  **Primena migracija**:
-    Otvorite konzolu i pokrenite komandu:
+    Otvorite *Package Manager Console* i pokrenite komandu:
     ```powershell
     Update-Database -Project GameShop.DAL -StartupProject GameShop.MVC
     ```
 4.  **Pokretanje**:
-    Pokrenite aplikaciju. `DbSeeder` će automatski kreirati početne podatke, uključujući Admina i testne igre.
+    Pokrenite aplikaciju (F5). Sistem će automatski izvršiti `DbSeeder` i ubaciti početni katalog igara i korisnike.
+5.  **Testni Podaci za Pristup**:
+    <div align="center">
 
-5.    **Testni Podaci za Pristup**
-Nakon pokretanja, možete koristiti sledeće kredencijale za testiranje aplikacije:
-<div align= "center">
-| Uloga | Korisničko ime | Lozinka |
-| :--- | :--- | :--- |
-| **Administrator** | `admin` | `admin` |
-| **Korisnik (User)** | `testuser` | `1234` |
-</div>    
+    | Uloga | Korisničko ime | Lozinka |
+    | :--- | :--- | :--- |
+    | **Administrator** | `admin` | `admin` |
+    | **Korisnik (User)** | `testuser` | `1234` |
+
+    </div>
+
 ---
 
 **© 2026 - Milovan Jovanov**
