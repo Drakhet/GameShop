@@ -72,6 +72,14 @@ Pratite ove korake da biste podesili projekat na svom računaru:
 4.  **Pokretanje**:
     Pokrenite aplikaciju. `DbSeeder` će automatski kreirati početne podatke, uključujući Admina i testne igre.
 
+5.    **Testni Podaci za Pristup**
+Nakon pokretanja, možete koristiti sledeće kredencijale za testiranje aplikacije:
+<div align= "center">
+| Uloga | Korisničko ime | Lozinka |
+| :--- | :--- | :--- |
+| **Administrator** | `admin` | `admin` |
+| **Korisnik (User)** | `testuser` | `1234` |
+</div>    
 ---
 
-**© 2026 - GameShop Team**
+**© 2026 - Milovan Jovanov**
