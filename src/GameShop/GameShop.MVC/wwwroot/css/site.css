@@ -318,3 +318,12 @@ body {
     color: #ff6b6b;
     font-weight: bold;
 }
+
+.navbar-brand img {
+    filter: drop-shadow(0 0 5px rgba(0, 255, 0, 0.5));
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+    transform: rotate(-10deg) scale(1.1);
+}
