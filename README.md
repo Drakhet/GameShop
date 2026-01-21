@@ -30,9 +30,9 @@ Umesto klasičnog prikaza, tvoj projekat koristi **N-tier arhitekturu** sa jasno
 
 * **Digitalni Novčanik (Wallet)**: Potpuna kontrola nad balansom korisnika u RSD valuti, uz mogućnost trenutne dopune sredstava.
 * **Prodavnica & Filteri**: Napredna pretraga igara po nazivu, žanru i ceni kako bi korisnici lakše pronašli željeni naslov.
-* [cite_start]**Moja Biblioteka**: Pregled kupljenih igara sa vizuelnim statusom i simulacijom pokretanja softvera[cite: 32, 43, 48].
+* **Moja Biblioteka**: Pregled kupljenih igara sa vizuelnim statusom i simulacijom pokretanja softvera.
 * **Admin Dashboard**: Centralizovano upravljanje svim korisnicima i katalogom igara kroz zaštićeni administrativni panel.
-* [cite_start]**Validacija Podataka**: Dvostruka provera unosa na klijentskoj i serverskoj strani radi maksimalne stabilnosti[cite: 27, 54].
+* **Validacija Podataka**: Dvostruka provera unosa na klijentskoj i serverskoj strani radi maksimalne stabilnosti.
 
 ---
 
