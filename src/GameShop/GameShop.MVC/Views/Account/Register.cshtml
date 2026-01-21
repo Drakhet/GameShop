@@ -4,46 +4,48 @@
     ViewData["Title"] = "Registracija";
 }
 
+<link rel="stylesheet" href="~/css/account.css" />
+
 <div class="row justify-content-center mt-5">
-    <div class="col-md-6">
-        <div class="glass-panel">
-            <h2 class="text-center mb-4">Kreiraj Nalog</h2>
+    <div class="col-md-6 col-lg-5">
+        <div class="glass-panel p-5">
+            <h2 class="account-title text-center mb-4">Kreiraj Nalog</h2>
 
             <form asp-action="Register" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3 text-center"></div>
 
                 <div class="mb-3">
-                    <label class="form-label">Korisničko ime</label>
+                    <label class="account-label text-muted">Korisničko ime</label>
                     <input asp-for="Username" class="form-control" placeholder="Izaberite username..." />
-                    <span asp-validation-for="Username" class="text-danger"></span>
+                    <span asp-validation-for="Username" class="text-danger account-validation-error"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Email adresa</label>
+                    <label class="account-label text-muted">Email adresa</label>
                     <input asp-for="Email" class="form-control" placeholder="vas@email.com" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <span asp-validation-for="Email" class="text-danger account-validation-error"></span>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Lozinka</label>
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label class="account-label text-muted">Lozinka</label>
                         <input asp-for="Password" type="password" class="form-control" placeholder="••••••" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <span asp-validation-for="Password" class="text-danger account-validation-error"></span>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Potvrda Lozinke</label>
+                    <div class="col-md-6">
+                        <label class="account-label text-muted">Potvrda</label>
                         <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="••••••" />
-                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger account-validation-error"></span>
                     </div>
                 </div>
 
                 <div class="d-grid gap-2 mt-4">
-                    <button type="submit" class="btn btn-primary btn-lg">REGISTRUJ SE</button>
+                    <button type="submit" class="btn btn-primary btn-lg fw-bold">REGISTRUJ SE</button>
                 </div>
             </form>
 
-            <div class="mt-3 text-center">
-                <p>Već imate nalog? <a asp-action="Login">Prijavite se ovde</a></p>
+                <p class="text-muted small mb-0">Već imate nalog?</p>
+                <a asp-action="Login" class="text-neon text-decoration-none fw-bold text-uppercase">Prijavite se ovde</a>
             </div>
         </div>
     </div>

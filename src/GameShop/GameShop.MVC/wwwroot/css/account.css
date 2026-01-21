@@ -1,0 +1,114 @@
+﻿
+.account-glass-panel {
+    padding: 3rem;
+    border-radius: 15px;
+}
+
+/* Naslovi */
+.account-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    color: var(--neon-green);
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.account-subtitle {
+    color: #888;
+    margin-bottom: 2rem;
+}
+
+.account-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: var(--neon-green);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.account-validation-error {
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+    color: #ff6b6b;
+}
+
+.btn-account-save {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-account-cancel {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+    .btn-account-cancel:hover {
+        opacity: 1;
+    }
+
+.profile-username {
+    font-size: 2.5rem; 
+    font-weight: bold;
+    margin-top: 0.5rem;
+    color: var(--text-main);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.profile-role-badge {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #6c757d; 
+    background: rgba(108, 117, 125, 0.2);
+    color: #ddd;
+    border-radius: 50px;
+}
+
+.profile-info-box {
+    padding: 1.5rem;
+    border-radius: 10px;
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .profile-info-box.email {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .profile-info-box.balance {
+        background: rgba(0, 255, 0, 0.05);
+        border: 1px solid var(--neon-green);
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.1); 
+    }
+
+.profile-balance-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--neon-green);
+    margin: 0;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+}
+
+.access-denied-code {
+    font-size: 8rem;
+    font-weight: 900;
+    color: #ff6b6b;
+    text-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+    line-height: 1;
+}
+
+.access-denied-title {
+    color: #ff6b6b;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}

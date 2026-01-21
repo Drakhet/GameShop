@@ -5,15 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GameShop</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
-    @* --- FONTOVI --- *@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Chakra+Petch:wght@400;600&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
-    @* ❌ OBRISANO: <link rel="stylesheet" href="~/GameShop.MVC.styles.css" ... /> 
-       Ovo je pravilo problem sa crnom trakom preko ekrana!
-    *@
+    <link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/games.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -47,18 +42,25 @@
                         }
                     </ul>
 
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav align-items-center gap-3">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link fw-bold" asp-controller="Account" asp-action="MyProfile">
-                                    @* ✅ IZMENA: Sklonili smo 'text-dark' da se ime vidi na tamnoj pozadini *@
-                                    <span>Zdravo, @User.Identity.Name!</span>
+                                <a class="nav-link d-flex align-items-center px-3 py-1 rounded-pill nav-profile-pill"
+                                   asp-controller="Account" asp-action="MyProfile">
+
+                                    <img src="~/images/default-avatar.png"
+                                         alt="Avatar"
+                                         class="rounded-circle me-2 nav-avatar" />
+
+                                    <span class="fw-bold me-2 text-neon">@User.Identity.Name</span>
+
                                     <span class="badge bg-secondary">@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn btn-link" asp-controller="Account" asp-action="Logout">Odjavi se</a>
+                                <a class="nav-link btn btn-link text-uppercase ls-1" style="font-size: 0.85rem;"
+                                   asp-controller="Account" asp-action="Logout">Odjavi se</a>
                             </li>
                         }
                         else
@@ -77,7 +79,6 @@
         </nav>
     </header>
 
-    @* ✅ IZMENA: Dodali smo klasu 'main-container' ovde *@
     <div class="container main-container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -86,7 +87,7 @@
 
     <footer class="footer">
         <div class="container">
-            &copy; 2026 - GameShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2026 - GameShop - <a asp-area="" asp-controller="Home" asp-action="Licence">Licence</a>
         </div>
     </footer>
 

@@ -1,45 +1,48 @@
 ﻿@model GameShop.MVC.ViewModels.UserViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Izmena Korisnika";
 }
+
+<link rel="stylesheet" href="~/css/users.css" />
 
 <div class="row justify-content-center mt-5">
     <div class="col-md-6">
-        <div class="glass-panel">
-            <h3 class="mb-4">Izmena Korisnika: <span style="color: var(--neon-green)">@Model.Username</span></h3>
+        <div class="glass-panel p-5">
+
+            <div class="mb-4">
+                <h3 class="users-page-title" style="font-size: 1.5rem;">Izmena Korisnika</h3>
+            </div>
 
             <form asp-action="Edit">
                 <input type="hidden" asp-for="Id" />
-
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                 <div class="mb-3">
-                    <label asp-for="Username" class="form-label">Korisničko ime</label>
+                    <label asp-for="Username" class="form-label text-muted small text-uppercase fw-bold">Korisničko ime</label>
                     <input asp-for="Username" class="form-control" />
-                    <span asp-validation-for="Username" class="text-danger"></span>
+                    <span asp-validation-for="Username" class="text-danger small"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Email" class="form-label">Email</label>
+                    <label asp-for="Email" class="form-label text-muted small text-uppercase fw-bold">Email</label>
                     <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <span asp-validation-for="Email" class="text-danger small"></span>
                 </div>
 
-                <div class="mb-3">
-                    <label asp-for="Role" class="form-label">Uloga</label>
-                    <select asp-for="Role" class="form-select bg-dark text-white">
+                <div class="mb-4">
+                    <label asp-for="Role" class="form-label text-muted small text-uppercase fw-bold">Uloga</label>
+                    <select asp-for="Role" class="form-select">
                         <option value="User">User</option>
                         <option value="Admin">Admin</option>
                     </select>
                 </div>
 
-                <div class="mb-4">
-                </div>
-
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary">Sačuvaj Promene</button>
-                    <a asp-action="Index" class="btn btn-outline-secondary">Nazad na listu</a>
+                <div class="d-grid gap-3 mt-4">
+                    <button type="submit" class="btn btn-primary fw-bold text-uppercase">
+                        Sačuvaj Promene
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-light">Nazad na listu</a>
                 </div>
             </form>
         </div>
@@ -47,5 +50,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

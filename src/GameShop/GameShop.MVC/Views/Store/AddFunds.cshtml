@@ -3,23 +3,33 @@
     decimal currentBalance = ViewBag.Balance;
 }
 
+<link rel="stylesheet" href="~/css/store.css" />
+
 <div class="row justify-content-center mt-5">
     <div class="col-md-5">
-        <div class="glass-panel text-center">
-            <h3 class="mb-3">Dopuna Računa</h3>
-            <p class="text-muted">Trenutno stanje: <span class="text-white fw-bold">@ViewBag.Balance.ToString("N2") RSD</span></p>
+        <div class="glass-panel text-center p-5">
+
+            <h3 class="page-header-title mb-3">Dopuna Računa</h3>
+
+            <p class="text-muted mb-4">
+                Trenutno stanje: <br />
+                <span class="wallet-balance">@ViewBag.Balance.ToString("N2") RSD</span>
+            </p>
 
             <form asp-action="AddFunds" method="post" class="mt-4">
-                <div class="mb-3">
-                    <label class="form-label">Iznos za uplatu (RSD)</label>
-                    <input type="number" name="amount" class="form-control text-center fs-4 fw-bold" placeholder="1000" min="1" required />
+                <div class="mb-4">
+                    <label class="form-label search-label text-white">Iznos za uplatu (RSD)</label>
+                    <input type="number" name="amount" class="form-control add-funds-input" placeholder="1000" min="1" required />
                 </div>
 
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-success btn-lg">POTVRDI UPLATU</button>
-                </div>
-                <div class="mt-3">
-                    <a asp-action="Index" class="btn btn-link text-muted">Odustani</a>
+                <div class="d-grid gap-3">
+                    <button type="submit" class="btn btn-success btn-lg fw-bold text-uppercase ls-1">
+                        POTVRDI UPLATU
+                    </button>
+
+                    <a asp-action="Index" class="btn btn-outline-light ls-1 text-uppercase">
+                        Odustani
+                    </a>
                 </div>
             </form>
         </div>

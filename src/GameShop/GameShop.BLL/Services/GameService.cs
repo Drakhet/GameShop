@@ -17,7 +17,10 @@ namespace GameShop.BLL.Services
 
         public async Task<List<VideoGameDto>> GetAllAsync()
         {
-            var games = await _context.VideoGames.ToListAsync();
+            var games = await _context.VideoGames
+                .AsNoTracking()
+                .ToListAsync();
+
             return games.Select(g => new VideoGameDto
             {
                 Id = g.Id,
@@ -25,13 +28,17 @@ namespace GameShop.BLL.Services
                 Genre = g.Genre,
                 Price = g.Price,
                 ReleaseDate = g.ReleaseDate,
-                Description = g.Description
+                Description = g.Description,
+                CoverImage = g.CoverImage
             }).ToList();
         }
 
         public async Task<VideoGameDto?> GetByIdAsync(int id)
         {
-            var g = await _context.VideoGames.FindAsync(id);
+            var g = await _context.VideoGames
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
             if (g == null) return null;
 
             return new VideoGameDto
@@ -41,7 +48,8 @@ namespace GameShop.BLL.Services
                 Genre = g.Genre,
                 Price = g.Price,
                 ReleaseDate = g.ReleaseDate,
-                Description = g.Description
+                Description = g.Description,
+                CoverImage = g.CoverImage
             };
         }
 
@@ -53,7 +61,8 @@ namespace GameShop.BLL.Services
                 Genre = dto.Genre,
                 Price = dto.Price,
                 ReleaseDate = dto.ReleaseDate,
-                Description = dto.Description
+                Description = dto.Description,
+                CoverImage = dto.CoverImage
             };
             _context.VideoGames.Add(game);
             await _context.SaveChangesAsync();
@@ -69,6 +78,7 @@ namespace GameShop.BLL.Services
                 game.Price = dto.Price;
                 game.ReleaseDate = dto.ReleaseDate;
                 game.Description = dto.Description;
+                game.CoverImage = dto.CoverImage;
 
                 _context.VideoGames.Update(game);
                 await _context.SaveChangesAsync();

@@ -2,10 +2,16 @@
     ViewData["Title"] = "Zabranjen pristup";
 }
 
-<div class="text-center mt-5">
-    <h1 class="text-danger display-1 fw-bold">403</h1>
-    <h2 class="text-danger">Zabranjen pristup!</h2>
-    <p class="lead mt-3">Nemate dozvolu da pristupite ovoj stranici.</p>
-    <hr />
-    <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-3">Vrati se na početnu</a>
+<link rel="stylesheet" href="~/css/account.css" />
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="text-center">
+        <h1 class="access-denied-code">403</h1>
+        <h2 class="access-denied-title mb-3">Zabranjen pristup!</h2>
+        <p class="lead text-muted mb-4">Nemate dozvolu da pristupite ovoj stranici.</p>
+
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary px-5 py-2 fw-bold">
+            <i class="bi bi-house-door-fill me-2"></i> Vrati se na početnu
+        </a>
+    </div>
 </div>

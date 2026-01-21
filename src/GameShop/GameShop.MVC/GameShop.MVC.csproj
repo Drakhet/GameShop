@@ -20,8 +20,4 @@
     <ProjectReference Include="..\GameShop.BLL\GameShop.BLL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\profiles\" />
-  </ItemGroup>
-
 </Project>

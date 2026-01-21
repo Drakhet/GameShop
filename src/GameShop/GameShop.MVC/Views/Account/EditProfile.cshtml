@@ -4,37 +4,53 @@
     ViewData["Title"] = "Izmena Profila";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-warning text-dark">
-                    <h4> Izmena podataka</h4>
-                </div>
-                <div class="card-body">
-                    <form asp-action="EditProfile" method="post">
-                        <input type="hidden" asp-for="Id" />
+<link rel="stylesheet" href="~/css/account.css" />
 
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-5">
 
-                        <div class="mb-3">
-                            <label asp-for="Username" class="form-label">Korisničko ime</label>
-                            <input asp-for="Username" class="form-control" />
-                            <span asp-validation-for="Username" class="text-danger"></span>
-                        </div>
+        <div class="glass-panel p-5">
 
-                        <div class="mb-3">
-                            <label asp-for="Email" class="form-label">Email adresa</label>
-                            <input asp-for="Email" class="form-control" type="email" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-success">Sačuvaj promene</button>
-                            <a asp-action="MyProfile" class="btn btn-outline-secondary">Odustani</a>
-                        </div>
-                    </form>
-                </div>
+            <div class="text-center mb-4">
+                <h2 class="account-title">
+                    <i class="bi bi-gear-fill me-2"></i> Izmena Podataka
+                </h2>
+                <p class="account-subtitle">Ažuriraj svoje osnovne informacije</p>
             </div>
+
+            <form asp-action="EditProfile" method="post">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3 text-center"></div>
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-4">
+                    <label asp-for="Username" class="account-label">
+                        Korisničko ime
+                    </label>
+                    <input asp-for="Username" class="form-control form-control-lg" placeholder="Unesi novo ime..." />
+                    <span asp-validation-for="Username" class="text-danger account-validation-error"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Email" class="account-label">
+                        Email Adresa
+                    </label>
+                    <input asp-for="Email" class="form-control form-control-lg" type="email" placeholder="Unesi novi email..." />
+                    <span asp-validation-for="Email" class="text-danger account-validation-error"></span>
+                </div>
+
+                <div class="d-grid gap-3 mt-5">
+                    <button type="submit" class="btn btn-primary btn-lg btn-account-save">
+                        SAČUVAJ PROMENE
+                    </button>
+
+                    <a asp-action="MyProfile" class="btn btn-outline-light btn-sm btn-account-cancel">
+                        <i class="bi bi-arrow-left"></i> Odustani i vrati se
+                    </a>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>

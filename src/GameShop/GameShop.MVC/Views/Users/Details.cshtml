@@ -1,55 +1,64 @@
 ﻿@model GameShop.MVC.ViewModels.UserViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalji Korisnika";
 }
 
-<h1>Details</h1>
+<link rel="stylesheet" href="~/css/users.css" />
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Username)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Role)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Balance)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Balance)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> |
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="glass-panel p-5">
 
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            <div class="d-flex justify-content-between align-items-start mb-5 border-bottom border-secondary pb-3">
+                <div>
+                    <h2 class="users-page-title">Detalji Korisnika</h2>
+                    <p class="text-muted mb-0 mt-1">ID: @Model.Id</p>
+                </div>
+                <div>
+                    @if (Model.Role == "Admin")
+                    {
+                        <span class="role-badge role-badge-admin fs-6">Admin</span>
+                    }
+                    else
+                    {
+                        <span class="role-badge role-badge-user fs-6">User</span>
+                    }
+                </div>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-6">
+                    <div class="p-3 rounded" style="background: rgba(255,255,255,0.05);">
+                        <div class="user-details-label">Korisničko ime</div>
+                        <div class="user-details-value">@Model.Username</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="p-3 rounded" style="background: rgba(255,255,255,0.05);">
+                        <div class="user-details-label">Email Adresa</div>
+                        <div class="user-details-value">@Model.Email</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="p-3 rounded" style="border: 1px solid var(--neon-green); background: rgba(0, 255, 0, 0.05);">
+                        <div class="user-details-label text-neon">Trenutni Balans</div>
+                        <div class="user-details-value neon">@Model.Balance.ToString("N2") RSD</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary fw-bold px-4 text-uppercase">
+                    Izmeni
+                </a>
+                <a asp-action="Index" class="btn btn-outline-light px-4">
+                    Nazad na listu
+                </a>
+            </div>
+
+        </div>
+    </div>
 </div>

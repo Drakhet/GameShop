@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using GameShop.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using GameShop.BLL.Interfaces; 
-using GameShop.MVC.ViewModels; 
-using GameShop.BLL.DTOs;      
+using GameShop.BLL.Interfaces;
+using GameShop.MVC.ViewModels;
+using GameShop.BLL.DTOs;
 
 namespace GameShop.MVC.Controllers
 {
@@ -11,6 +11,7 @@ namespace GameShop.MVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IGameService _gameService;
+
         public HomeController(ILogger<HomeController> logger, IGameService gameService)
         {
             _logger = logger;
@@ -28,21 +29,22 @@ namespace GameShop.MVC.Controllers
                 Genre = g.Genre,
                 Price = g.Price,
                 Description = g.Description,
-                ReleaseDate = g.ReleaseDate
-                // Ako imaš sliku, dodaj je ovde
+                ReleaseDate = g.ReleaseDate,
+                CoverImage = g.CoverImage
+
             }).ToList();
 
             return View(gameVms);
-        }
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult Licence()
+        {
+            return View();
         }
     }
 }

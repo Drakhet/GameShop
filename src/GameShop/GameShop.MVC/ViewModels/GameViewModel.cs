@@ -15,7 +15,7 @@ namespace GameShop.MVC.ViewModels
         public string Genre { get; set; }
 
         [Required(ErrorMessage = "Cena je obavezna.")]
-        [Range(1, 80, ErrorMessage = "Cena mora biti između 1 i 80$.")]
+        [Range(1, 50000, ErrorMessage = "Cena mora biti između 1 i 50.000 RSD.")]
         [Display(Name = "Cena (RSD)")]
         public decimal Price { get; set; }
 
@@ -26,5 +26,8 @@ namespace GameShop.MVC.ViewModels
 
         [Display(Name = "Opis")]
         public string? Description { get; set; }
+
+        [Display(Name = "Slika (naziv fajla)")]
+        public string CoverImage { get; set; }
     }
 }

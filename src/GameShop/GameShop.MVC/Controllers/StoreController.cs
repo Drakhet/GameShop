@@ -57,7 +57,8 @@ namespace GameShop.MVC.Controllers
                 Genre = g.Genre,
                 Price = g.Price,
                 ReleaseDate = g.ReleaseDate,
-                Description = g.Description
+                Description = g.Description,
+                CoverImage = g.CoverImage
             }).ToList();
 
             return View(vms);
@@ -89,7 +90,8 @@ namespace GameShop.MVC.Controllers
                 Genre = g.Genre,
                 Price = g.Price,
                 ReleaseDate = g.ReleaseDate,
-                Description = g.Description
+                Description = g.Description,
+                CoverImage = g.CoverImage
             }).ToList();
 
             return View(vms);

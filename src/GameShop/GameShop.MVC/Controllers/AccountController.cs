@@ -26,6 +26,7 @@ namespace GameShop.MVC.Controllers
 
         public IActionResult Login()
         {
+            if (User.Identity!.IsAuthenticated) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -55,8 +56,7 @@ namespace GameShop.MVC.Controllers
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));
-
-            return RedirectToAction("Index", "Games");
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Logout()
@@ -68,6 +68,7 @@ namespace GameShop.MVC.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            if (User.Identity!.IsAuthenticated) return RedirectToAction("Index", "Home");
             return View(new RegisterViewModel());
         }
 
@@ -80,8 +81,8 @@ namespace GameShop.MVC.Controllers
                 {
                     Username = vm.Username,
                     Email = vm.Email,
-                    Password = vm.Password, 
-                    Role = "Customer",
+                    Password = vm.Password,
+                    Role = "User",
                     Balance = 0
                 };
 
@@ -130,7 +131,6 @@ namespace GameShop.MVC.Controllers
             model.Id = userId;
 
             ModelState.Remove("Password");
-            ModelState.Remove("ConfirmPassword");
             ModelState.Remove("Role");
 
             if (ModelState.IsValid)
@@ -142,16 +142,6 @@ namespace GameShop.MVC.Controllers
             }
 
             return View(model);
-        }
-
-        private int GetCurrentUserId()
-        {
-            var userIdClaim = User.FindFirst("UserId");
-            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
-            {
-                return userId;
-            }
-            return 0;
         }
 
         [Authorize]
@@ -181,6 +171,16 @@ namespace GameShop.MVC.Controllers
                 ModelState.AddModelError("", "Stara lozinka nije ispravna.");
                 return View(model);
             }
+        }
+
+        private int GetCurrentUserId()
+        {
+            var userIdClaim = User.FindFirst("UserId");
+            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return userId;
+            }
+            return 0;
         }
     }
 }

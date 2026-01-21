@@ -3,31 +3,37 @@
 @{
     ViewData["Title"] = "Prijava";
 }
+
+<link rel="stylesheet" href="~/css/account.css" />
+
 <div class="row justify-content-center mt-5">
-    <div class="col-md-5">
-        <div class="glass-panel text-center">
-            <h2 class="mb-4"> Prijava</h2>
+    <div class="col-md-5 col-lg-4">
+        <div class="glass-panel p-5 text-center">
+
+            <h2 class="account-title mb-4">Prijava</h2>
+
             <form asp-action="Login" method="post" class="text-start">
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-                
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3 text-center"></div>
+
                 <div class="mb-3">
-                    <label class="form-label">Korisničko ime</label>
+                    <label class="account-label text-muted">Korisničko ime</label>
                     <input asp-for="Username" class="form-control" placeholder="Unesite username..." />
-                    <span asp-validation-for="Username" class="text-danger"></span>
-                </div>
-                
-                <div class="mb-3">
-                    <label class="form-label">Lozinka</label>
-                    <input asp-for="Password" type="password" class="form-control" placeholder="••••••" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <span asp-validation-for="Username" class="text-danger account-validation-error"></span>
                 </div>
 
-                <div class="d-grid gap-2 mt-4">
-                    <button type="submit" class="btn btn-primary btn-lg">ULOGUJ SE</button>
+                <div class="mb-4">
+                    <label class="account-label text-muted">Lozinka</label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="••••••" />
+                    <span asp-validation-for="Password" class="text-danger account-validation-error"></span>
+                </div>
+
+                <div class="d-grid gap-2 mt-5">
+                    <button type="submit" class="btn btn-primary btn-lg fw-bold">ULOGUJ SE</button>
                 </div>
             </form>
-            <div class="mt-3">
-                <p>Nemaš nalog? <a asp-action="Register">Registruj se ovde</a></p>
+
+                <p class="text-muted small mb-0">Nemaš nalog?</p>
+                <a asp-action="Register" class="text-neon text-decoration-none fw-bold text-uppercase">Registruj se ovde</a>
             </div>
         </div>
     </div>

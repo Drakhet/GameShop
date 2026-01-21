@@ -14,11 +14,15 @@ namespace GameShop.BLL.Services
         {
             _context = context;
         }
+
         public async Task<UserDto?> AuthenticateAsync(string username, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            var user = await _context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Username == username);
 
             if (user == null) return null;
+
             bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
 
             if (!isPasswordValid) return null;
@@ -32,6 +36,7 @@ namespace GameShop.BLL.Services
                 Balance = user.Balance
             };
         }
+
         public async Task CreateAsync(UserDto dto)
         {
             var user = new User
@@ -69,7 +74,7 @@ namespace GameShop.BLL.Services
 
         public async Task<bool> RegisterAsync(UserDto userDto)
         {
-            if (await _context.Users.AnyAsync(u => u.Username == userDto.Username))
+            if (await _context.Users.AsNoTracking().AnyAsync(u => u.Username == userDto.Username))
             {
                 return false;
             }
@@ -87,9 +92,13 @@ namespace GameShop.BLL.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
         public async Task<List<UserDto>> GetAllAsync()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users
+                .AsNoTracking()
+                .ToListAsync();
+
             return users.Select(u => new UserDto
             {
                 Id = u.Id,
@@ -102,7 +111,10 @@ namespace GameShop.BLL.Services
 
         public async Task<UserDto?> GetByIdAsync(int id)
         {
-            var u = await _context.Users.FindAsync(id);
+            var u = await _context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
             if (u == null) return null;
 
             return new UserDto
@@ -149,6 +161,7 @@ namespace GameShop.BLL.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
         public async Task UpdateUserAsync(UserDto userDto)
         {
             var user = await _context.Users.FindAsync(userDto.Id);

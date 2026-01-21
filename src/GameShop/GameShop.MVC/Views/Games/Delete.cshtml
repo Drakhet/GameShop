@@ -1,29 +1,41 @@
 ﻿@model GameShop.MVC.ViewModels.GameViewModel
 
 @{
-    ViewData["Title"] = "Obriši Igru";
+    ViewData["Title"] = "Brisanje Igre";
 }
 
-<h1>Obriši Igru</h1>
+<link rel="stylesheet" href="~/css/games.css" />
 
-<h3>Da li ste sigurni da želite da obrišete ovu igru?</h3>
-<div>
-    <h4>@Model.Title</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Genre)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Genre)</dd>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
 
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Price)</dt>
-        <dd class="col-sm-10">@Model.Price.ToString("N2") RSD</dd>
+            <div class="glass-panel p-5 text-center">
 
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ReleaseDate)</dt>
-        <dd class="col-sm-10">@Model.ReleaseDate.ToShortDateString()</dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Obriši" class="btn btn-danger" /> 
-        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
-    </form>
+                <h2 class="page-header-title mb-4">
+                    Brisanje Igre
+                </h2>
+
+                <h4 class="text-white mb-5" style="font-weight: normal;">
+                    Da li ste sigurni da želite da obrišete igru <br />
+                    <span class="text-neon fw-bold mt-2 d-inline-block">"@Model.Title"</span>?
+                </h4>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="d-flex justify-content-center gap-3">
+                        <button type="submit" class="btn btn-danger fw-bold px-4 py-2">
+                            OBRIŠI
+                        </button>
+
+                        <a asp-action="Index" class="btn btn-outline-light px-4 py-2">
+                            Odustani
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 </div>

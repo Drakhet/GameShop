@@ -15,6 +15,7 @@ namespace GameShop.MVC.Controllers
         {
             _gameService = gameService;
         }
+
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
@@ -27,11 +28,13 @@ namespace GameShop.MVC.Controllers
                 Genre = d.Genre,
                 Price = d.Price,
                 ReleaseDate = d.ReleaseDate,
-                Description = d.Description
+                Description = d.Description,
+                CoverImage = d.CoverImage
             }).ToList();
 
             return View(vms);
         }
+
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
@@ -45,12 +48,15 @@ namespace GameShop.MVC.Controllers
                 Genre = dto.Genre,
                 Price = dto.Price,
                 ReleaseDate = dto.ReleaseDate,
-                Description = dto.Description
+                Description = dto.Description,
+                CoverImage = dto.CoverImage
             };
             return View(vm);
         }
+
         [Authorize(Roles = "Admin")]
         public IActionResult Create() => View();
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -64,13 +70,15 @@ namespace GameShop.MVC.Controllers
                     Genre = vm.Genre,
                     Price = vm.Price,
                     ReleaseDate = vm.ReleaseDate,
-                    Description = vm.Description
+                    Description = vm.Description,
+                    CoverImage = string.IsNullOrEmpty(vm.CoverImage) ? "no-image.jpg" : vm.CoverImage
                 };
                 await _gameService.CreateAsync(dto);
                 return RedirectToAction(nameof(Index));
             }
             return View(vm);
         }
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -84,10 +92,12 @@ namespace GameShop.MVC.Controllers
                 Genre = dto.Genre,
                 Price = dto.Price,
                 ReleaseDate = dto.ReleaseDate,
-                Description = dto.Description
+                Description = dto.Description,
+                CoverImage = dto.CoverImage
             };
             return View(vm);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -104,13 +114,15 @@ namespace GameShop.MVC.Controllers
                     Genre = vm.Genre,
                     Price = vm.Price,
                     ReleaseDate = vm.ReleaseDate,
-                    Description = vm.Description
+                    Description = vm.Description,
+                    CoverImage = string.IsNullOrEmpty(vm.CoverImage) ? "no-image.jpg" : vm.CoverImage
                 };
                 await _gameService.UpdateAsync(dto);
                 return RedirectToAction(nameof(Index));
             }
             return View(vm);
         }
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -1,24 +1,31 @@
 ﻿@model GameShop.MVC.ViewModels.UserViewModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Brisanje Korisnika";
 }
+
+<link rel="stylesheet" href="~/css/users.css" />
+
 <div class="row justify-content-center mt-5">
     <div class="col-md-6">
-        <div class="glass-panel text-center border-danger">
-            <h1 class="text-danger mb-3">PAŽNJA</h1>
-            <h3>Da li ste sigurni da želite da obrišete korisnika?</h3>
-            
-            <div class="my-4 p-3 rounded" style="background: rgba(0,0,0,0.3);">
-                <h4 class="text-white">@Model.Username</h4>
+        <div class="glass-panel text-center p-5">
+
+            <h3 class="users-page-title text-danger mb-4" style="text-shadow: none;">Brisanje Korisnika</h3>
+
+            <p class="text-muted mb-4">Da li ste sigurni da želite trajno da obrišete ovaj nalog?</p>
+
+            <div class="my-4 p-4 rounded" style="background: rgba(255, 0, 0, 0.05); border: 1px solid rgba(255,0,0,0.2);">
+                <h4 class="text-white fw-bold">@Model.Username</h4>
                 <p class="text-muted mb-0">@Model.Email</p>
             </div>
 
             <form asp-action="Delete">
                 <input type="hidden" asp-for="Id" />
                 <div class="d-flex justify-content-center gap-3">
-                    <a asp-action="Index" class="btn btn-outline-light">Odustani</a>
-                    <button type="submit" class="btn px-4">OBRIŠI</button>
+                    <button type="submit" class="btn btn-danger fw-bold px-4 text-uppercase">
+                        Obriši
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-light px-4">Odustani</a>
                 </div>
             </form>
         </div>

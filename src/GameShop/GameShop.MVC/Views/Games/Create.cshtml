@@ -4,54 +4,79 @@
     ViewData["Title"] = "Nova Igra";
 }
 
-<h1>Nova Igra</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
+<link rel="stylesheet" href="~/css/games.css" />
 
-            <div class="form-group">
-                <label asp-for="Genre" class="control-label"></label>
-                <input asp-for="Genre" class="form-control" />
-                <span asp-validation-for="Genre" class="text-danger"></span>
-            </div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
 
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" type="number" step="0.01" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
+            <div class="glass-panel p-5">
 
-            <div class="form-group">
-                <label asp-for="ReleaseDate" class="control-label"></label>
-                <input asp-for="ReleaseDate" class="form-control" />
-                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
-            </div>
+                <div class="d-flex align-items-center mb-4">
+                    <h2 class="page-header-title">
+                        <i class="bi bi-plus-circle-fill me-2"></i> Dodaj Novu Igru
+                    </h2>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <div class="form-group mt-3">
-                <input type="submit" value="Dodaj Igru" class="btn btn-primary" />
+                    <div class="mb-4">
+                        <label asp-for="Title" class="form-section-label">Naslov Igre</label>
+                        <input asp-for="Title" class="form-control form-control-lg" placeholder="Unesite naziv igre..." />
+                        <span asp-validation-for="Title" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label asp-for="Genre" class="form-section-label">Žanr</label>
+                            <input asp-for="Genre" class="form-control" placeholder="npr. FPS" />
+                            <span asp-validation-for="Genre" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Price" class="form-section-label">Cena (RSD)</label>
+                            <input asp-for="Price" class="form-control" type="number" step="0.01" placeholder="0.00" />
+                            <span asp-validation-for="Price" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label asp-for="ReleaseDate" class="form-section-label">Datum Izlaska</label>
+                            <input asp-for="ReleaseDate" class="form-control" type="date" />
+                            <span asp-validation-for="ReleaseDate" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="CoverImage" class="form-section-label">Naziv Slike (opciono)</label>
+                            <input asp-for="CoverImage" class="form-control" placeholder="npr. nova_igra.jpg" />
+                            <span asp-validation-for="CoverImage" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <label asp-for="Description" class="form-section-label">Opis</label>
+                        <textarea asp-for="Description" class="form-control" rows="5" placeholder="Kratak opis igre..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex gap-3 pt-3">
+                        <button type="submit" class="btn btn-primary fw-bold px-4 py-2 flex-grow-1">
+                            <i class="bi bi-plus-lg me-2"></i> KREIRAJ IGRU
+                        </button>
+
+                        <a asp-action="Index" class="btn btn-outline-light px-4 py-2">
+                            Nazad na listu
+                        </a>
+                    </div>
+                </form>
+
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Nazad na listu</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

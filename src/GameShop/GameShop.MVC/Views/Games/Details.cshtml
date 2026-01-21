@@ -4,51 +4,74 @@
     ViewData["Title"] = "Detalji Igre";
 }
 
-<h1>Detalji</h1>
+<link rel="stylesheet" href="~/css/games.css" />
 
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="glass-panel">
 
-                <div class="d-flex justify-content-between align-items-start mb-4">
+    <div class="glass-panel details-glass-panel">
+        <div class="row g-0">
+
+            <div class="col-md-5 details-cover-container">
+                @if (!string.IsNullOrEmpty(Model.CoverImage))
+                {
+                    <img src="~/images/games/@Model.CoverImage" alt="@Model.Title" class="details-cover-img">
+                    <div class="details-gradient-overlay"></div>
+                }
+                else
+                {
+                    <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                        <div class="text-center">
+                            <i class="bi bi-image display-1"></i>
+                            <p class="mt-2">Nema slike</p>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="col-md-7 p-5 d-flex flex-column justify-content-center">
+
+                <div class="d-flex justify-content-between align-items-start mb-3">
                     <div>
-                        <h1 class="fw-bold mb-0">@Model.Title</h1>
-                        <span class="badge bg-secondary mt-2">@Model.Genre</span>
+                        <h1 class="display-4 fw-bold text-uppercase mb-2 text-neon font-orbitron" style="line-height: 1;">
+                            @Model.Title
+                        </h1>
+                        <span class="badge bg-secondary border border-secondary text-white px-3 py-2">
+                            @Model.Genre
+                        </span>
                     </div>
-                    <h2 class="fw-bold" style="color: #fff;">@Model.Price.ToString("N0") RSD</h2>
+
+                    <h2 class="details-price ms-3">
+                        @Model.Price.ToString("N0") RSD
+                    </h2>
                 </div>
 
-                <hr style="border-color: var(--neon-green);" />
-
-                <div class="py-3">
-                    <h5 class="text-uppercase text-muted small">Opis igre</h5>
-                    <p class="lead" style="color: #ddd;">@Model.Description</p>
+                <div class="mt-4 mb-4">
+                    <label class="form-section-label">Opis igre</label>
+                    <p class="text-light lead" style="font-size: 1rem; opacity: 0.9;">
+                        @Model.Description
+                    </p>
                 </div>
 
-                <div class="row mb-4">
-                    <div class="col-6">
-                        <h5 class="text-uppercase text-muted small">Datum izlaska</h5>
-                        <p>@Model.ReleaseDate.ToShortDateString()</p>
+                <div class="mb-5">
+                    <label class="form-section-label">Datum Izlaska</label>
+                    <div class="fs-5 text-white">
+                        <i class="bi bi-calendar-event me-2 text-success"></i>
+                        @Model.ReleaseDate.ToString("dd. MMMM yyyy.")
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-end gap-2">
-                    <a asp-action="Index" class="btn btn-outline-secondary">Nazad na listu</a>
+                <div class="d-flex gap-3 mt-auto flex-wrap">
+                    <a asp-action="Index" class="btn btn-outline-light fw-bold px-4">
+                        <i class="bi bi-arrow-left"></i> Nazad
+                    </a>
 
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Izmeni (Admin)</a>
-                    }
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary fw-bold px-4 flex-grow-1">
+                        <i class="bi bi-pencil-square"></i> Izmeni
+                    </a>
 
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <a asp-controller="Store" asp-action="Index"
-                           asp-route-searchString="@Model.Title"
-                           class="btn btn-primary">
-                            Pronađi u Prodavnici
-                        </a>
-                    }
+                    <a asp-controller="Store" asp-action="Index" asp-route-searchString="@Model.Title" class="btn btn-primary fw-bold px-4 flex-grow-1">
+                        <i class="bi bi-cart-check-fill me-2"></i> Pronađi u prodavnici
+                    </a>
                 </div>
 
             </div>

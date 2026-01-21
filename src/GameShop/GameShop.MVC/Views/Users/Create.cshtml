@@ -1,54 +1,70 @@
 ﻿@model GameShop.MVC.ViewModels.UserViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Novi Korisnik";
 }
+
+<link rel="stylesheet" href="~/css/users.css" />
 
 <div class="row justify-content-center mt-5">
     <div class="col-md-6">
-        <div class="glass-panel">
-            <h3 class="mb-4">Kreiraj Novog Korisnika</h3>
+        <div class="glass-panel p-5">
+
+            <div class="mb-4">
+                <h3 class="users-page-title" style="font-size: 1.5rem;">
+                    Kreiraj Novog Korisnika
+                </h3>
+            </div>
 
             <form asp-action="Create" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3 text-center"></div>
 
                 <div class="mb-3">
-                    <label asp-for="Username" class="form-label">Korisničko ime</label>
+                    <label asp-for="Username" class="form-label text-muted small text-uppercase fw-bold">Korisničko ime</label>
                     <input asp-for="Username" class="form-control" placeholder="Unesite username..." />
-                    <span asp-validation-for="Username" class="text-danger"></span>
+                    <span asp-validation-for="Username" class="text-danger small"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Email" class="form-label">Email</label>
+                    <label asp-for="Email" class="form-label text-muted small text-uppercase fw-bold">Email</label>
                     <input asp-for="Email" class="form-control" placeholder="email@primer.com" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <span asp-validation-for="Email" class="text-danger small"></span>
                 </div>
 
-                <div class="mb-3">
-                    <label asp-for="Password" class="form-label">Lozinka</label>
-                    <input asp-for="Password" type="password" class="form-control" placeholder="••••••" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="Password" class="form-label text-muted small text-uppercase fw-bold">Lozinka</label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="••••••" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="ConfirmPassword" class="form-label text-muted small text-uppercase fw-bold">Potvrdi Lozinku</label>
+                        <input asp-for="ConfirmPassword" class="form-control" placeholder="••••••" type="password" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label asp-for="ConfirmPassword" class="form-label">Potvrdi Lozinku</label>
-                    <input asp-for="ConfirmPassword" class="form-control" placeholder="••••••" type="password" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Role" class="form-label">Uloga</label>
-                    <select asp-for="Role" class="form-select bg-dark text-white">
+
+                <div class="mb-4">
+                    <label asp-for="Role" class="form-label text-muted small text-uppercase fw-bold">Uloga</label>
+                    <select asp-for="Role" class="form-select">
                         <option value="User">User</option>
                         <option value="Admin">Admin</option>
                     </select>
                 </div>
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-success">Kreiraj</button>
-                    <a asp-action="Index" class="btn btn-outline-secondary">Nazad na listu</a>
+
+                <div class="d-grid gap-3 mt-4">
+                    <button type="submit" class="btn btn-primary fw-bold text-uppercase">
+                        Kreiraj Korisnika
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-light">Nazad na listu</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

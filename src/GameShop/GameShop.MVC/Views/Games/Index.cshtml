@@ -1,39 +1,102 @@
 ﻿@model IEnumerable<GameShop.MVC.ViewModels.GameViewModel>
 
 @{
-    ViewData["Title"] = "Pregled Igara";
+    ViewData["Title"] = "Katalog Igara";
+    // Provera da li je ulogovani korisnik Admin
+    bool isAdmin = User.IsInRole("Admin");
 }
- <div class="d-flex justify-content-between align-items-center mb-5">
-            <h1 class="display-4 fw-bold" style="color: var(--neon-green);">KATALOG IGARA</h1>
-            @if (User.IsInRole("Admin"))
-            {
-       
-                <a asp-action="Create" class="btn btn-primary">
-                    + Nova Igra
-                </a>
-            }
-        </div>
 
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            @foreach (var item in Model)
-            {
-                <div class="col">
-                    <div class="card h-100 game-card">
-                        <div class="card-header bg-transparent border-0 text-end">
-                            <span class="badge bg-secondary">@item.Genre</span>
-                        </div>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title text-uppercase fw-bold" style="color: var(--neon-green);">@item.Title</h5>
-                            <p class="card-text text-muted text-truncate">@item.Description</p>
+<link rel="stylesheet" href="~/css/games.css" />
 
-                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top border-secondary">
-                                <span class="fw-bold text-white">@item.Price.ToString("N0") RSD</span>
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">
-                                    Detalji
-                                </a>
+<div class="container">
+
+    <div class="d-flex justify-content-between align-items-center mb-5 mt-5 glass-panel p-3">
+        <h1 class="display-5 page-header-title">
+            <i class="bi bi-collection me-2"></i> Katalog Igara
+        </h1>
+
+        @if (isAdmin)
+        {
+            <a asp-action="Create" class="btn btn-primary fw-bold">
+                + NOVA IGRA
+            </a>
+        }
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 game-card border-0">
+
+                    <div class="game-card-img-wrapper">
+                        @if (!string.IsNullOrEmpty(item.CoverImage))
+                        {
+                            <img src="~/images/games/@item.CoverImage" alt="@item.Title" class="game-card-img">
+                        }
+                        else
+                        {
+                            <div class="d-flex align-items-center justify-content-center h-100 bg-dark">
+                                <i class="bi bi-image text-muted fs-1"></i>
                             </div>
+                        }
+
+                        <div class="game-card-badges">
+                            <span class="badge bg-dark bg-opacity-75 border border-secondary text-light">
+                                @item.ReleaseDate.Year
+                            </span>
+                            <span class="badge bg-secondary bg-opacity-50 border border-secondary text-light">
+                                @item.Genre
+                            </span>
                         </div>
                     </div>
+
+                    <div class="card-body d-flex flex-column p-4">
+
+                        <h5 class="game-card-title">
+                            @item.Title
+                        </h5>
+
+                        <p class="card-text text-muted flex-grow-1 small text-clamp-3">
+                            @item.Description
+                        </p>
+
+                        <div class="mt-auto pt-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-5 fw-bold text-white">@item.Price.ToString("N0") RSD</span>
+
+                                <div class="d-flex gap-2">
+
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm fw-bold px-3">
+                                        Detalji
+                                    </a>
+
+                                    @if (isAdmin)
+                                    {
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm" title="Obriši">
+                                            <i class="bi bi-trash-fill"></i>
+                                            Obriši
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center mt-5 py-5 glass-panel">
+            <h3 class="text-muted font-orbitron">Katalog je prazan.</h3>
+            <p class="text-secondary">Trenutno nema dostupnih igara.</p>
+            @if (isAdmin)
+            {
+                <a asp-action="Create" class="btn btn-primary mt-3">+ Dodaj prvu igru</a>
             }
         </div>
+    }
+</div>

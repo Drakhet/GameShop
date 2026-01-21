@@ -1,44 +1,74 @@
 ﻿@model IEnumerable<GameShop.MVC.ViewModels.UserViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Upravljanje Korisnicima";
 }
 
-<div class="glass-panel">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="m-0">Upravljanje Korisnicima</h2>
-        <a asp-action="Create" class="btn btn-success">+ Novi Korisnik</a>
-    </div>
+<link rel="stylesheet" href="~/css/users.css" />
 
-    <div class="table-responsive">
-        <table class="table table-dark table-hover bg-transparent" style="--bs-table-bg: transparent;">
-            <thead>
-                <tr style="border-bottom: 2px solid var(--neon-green);">
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Uloga</th>
-                    <th>Balans</th>
-                    <th class="text-end">Akcije</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr class="align-middle">
-                        <td class="fw-bold text-white">@item.Username</td>
-                        <td class="text-muted">@item.Email</td>
-                        <td>
-                            <span class="badge @(item.Role == "Admin" ? "bg-danger" : "bg-primary")">
-                                @item.Role
-                            </span>
-                        </td>
-                        <td class="text-end">
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning me-1">Izmeni</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Obriši</a>
-                        </td>
+<div class="container">
+    <div class="glass-panel p-4 mt-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="users-page-title">
+                Upravljanje Korisnicima
+            </h2>
+            <a asp-action="Create" class="btn btn-primary fw-bold text-uppercase">
+                + Novi Korisnik
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-uppercase text-muted small">Username</th>
+                        <th class="text-uppercase text-muted small">Email</th>
+                        <th class="text-center text-uppercase text-muted small">Uloga</th>
+                        <th class="text-end text-uppercase text-muted small">Balans</th>
+                        <th class="text-end text-uppercase text-muted small">Akcije</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="users-table-username">
+                                @item.Username
+                            </td>
+
+                            <td class="users-table-email">
+                                @item.Email
+                            </td>
+
+                            <td class="text-center">
+                                @if (item.Role == "Admin")
+                                {
+                                    <span class="role-badge role-badge-admin">Admin</span>
+                                }
+                                else
+                                {
+                                    <span class="role-badge role-badge-user">User</span>
+                                }
+                            </td>
+
+                            <td class="users-table-balance">
+                                @(item.Balance.ToString("N2")) RSD
+                            </td>
+
+                            <td class="text-end">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary fw-bold text-uppercase me-2 px-3">
+                                    Izmeni
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger fw-bold text-uppercase px-3">
+                                    Obriši
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>

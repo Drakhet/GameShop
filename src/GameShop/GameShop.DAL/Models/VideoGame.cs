@@ -8,11 +8,12 @@ namespace GameShop.DAL.Models
 {
     public class VideoGame
     {
-        public int Id { get; set; } // Jedinstveni ID
-        public string Title { get; set; } // Naslov igre
-        public string? Description { get; set; } // Opis
-        public string Genre { get; set; } // Žanr
-        public decimal Price { get; set; } // Cena
-        public DateTime ReleaseDate { get; set; } // Datum izlaska
+        public int Id { get; set; }
+        public string Title { get; set; } 
+        public string? Description { get; set; } 
+        public string Genre { get; set; } 
+        public decimal Price { get; set; } 
+        public DateTime ReleaseDate { get; set; }
+        public string CoverImage { get; set; }
     }
 }

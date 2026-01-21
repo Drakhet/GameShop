@@ -1,0 +1,97 @@
+﻿
+.page-header-title {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--neon-green);
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+}
+
+.game-card-img-wrapper {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.game-card:hover .game-card-img {
+    transform: scale(1.1);
+}
+
+.game-card-badges {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.game-card-title {
+    color: var(--neon-green);
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.details-glass-panel {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.details-cover-container {
+    min-height: 500px;
+    position: relative;
+    background-color: #111;
+}
+
+.details-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.details-gradient-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0) 50%, rgba(20,20,20,1) 100%);
+}
+
+.details-price {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.form-section-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #888; 
+    margin-bottom: 0.5rem;
+}
